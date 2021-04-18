@@ -83,6 +83,9 @@ function draw(){
 function mouseDragged(){
     if (gameState!=="launched"){
         Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+        //Increase the force of the bird
+        Matter.Body.applyForce(bird.body, bird.body.position, {x: 9, y: -3})
+
     }
 }
 
@@ -93,8 +96,12 @@ function mouseReleased(){
 }
 
 function keyPressed(){
-    if(keyCode === 32){
-       // slingshot.attach(bird.body);
+    if(keyCode === 32 && gameState=== "launched"){
+      //the bird comes near the slingshot
+        Matter.Body.setPosition(bird.body ,{x: 200 , y:50});
+        slingshot.attach(bird.body);
+        gameState= "onSling";
+        
     }
 }
 
